@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Minefield</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <style>
+        #buttonArea button {
+            height: 40px;
+            width: 40px;
+            margin: 3px;
+        }
+        
+        #buttonArea button:hover {
+            background-image: url();
+            background-size: cover;
+        }
+    </style>
+
+</head>
+
+<body style="text-align: center; margin-top: 30px;">
+    <div class="container ">
+        <div class="raw">
+            <div class="card">
+                <div class="card-title">
+                    <button id="calistir" class="btn btn-primary" class="tarla" style="margin-top: 10px">Çalıştır!<i class="fas fa-bomb"></i></button>
+                </div>
+
+                <div class="card-body" id="buttonArea">
+                </div>
+                <div class="card-footer " id="speaker">
+                    Başlayabilirsiniz. 
+                </div>
+                </div class= "card-title">
+            </div>
+        </div>
+</body>
+
+</html>
+<script>
+    var kenarSayisi = 5;
+    var mayinlar = [];
+    var mayinSayisi = 0;
+    var butonTarlasi = [];
+    while (mayinSayisi < kenarSayisi) {
+        var mayin = Math.floor(Math.random() * 25);
+        var varMi = mayinlar.includes(mayin);
+        if (!varMi) {
+            mayinlar.push(mayin);
+            mayinSayisi++;
+        };
+    };
+
+    function TarlaOlustur() {
+        var idSayac = 1;
+        for (i = 0; i < kenarSayisi; i++) {
+            for (y = 1; y <= kenarSayisi; y++) {
+                if (mayinlar.includes(idSayac)) {
+                    $("#buttonArea").append("<button class='btn btn-light btn-outline-secondary' name='butonPATLAYAN' id='" + idSayac + "'></button>");
+                    idSayac++;
+                } else {
+                    $("#buttonArea").append("<button class='btn btn-light btn-outline-secondary' name='butonBos' id='" + idSayac + "'></button>");
+                    idSayac++;
+                }
+            };
+            $("#buttonArea").append("<br>");
+        };
+        console.log(mayinlar);
+        $("#speaker").html(" Bom  <i class='far fa-grin-squint-tears'></i>");
+
+    };
+    $(document).on("click", "#calistir", function() {
+        TarlaOlustur();
+        $("#buttonArea button").click(function() {
+            if ($(this).attr("name") == 'butonPATLAYAN') {
+                $(this).html('<i class="fas fa-skull-crossbones fa-spin" style="align-items: center;color:red"></i>');
+            } else {
+                $(this).html('<i class="fas fa-flag-checkered btn-outline-primary" style="align-items: center"></i>');
+            }
+
+
+        });
+    });
+</script>
